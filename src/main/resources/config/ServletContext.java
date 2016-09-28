@@ -68,7 +68,7 @@ public class ServletContext extends WebMvcConfigurerAdapter {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
        em.setDataSource(dataSource());
-       em.setPackagesToScan(new String[] {"net.suby.bss" });
+       em.setPackagesToScan(new String[] {"net.suby.bss.*" });
   
        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
        em.setJpaVendorAdapter(vendorAdapter);
@@ -87,11 +87,17 @@ public class ServletContext extends WebMvcConfigurerAdapter {
     	return dataSource;
     }
   
+    Properties additionalProperties() {
+    	Properties properties = new Properties();
+    	properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+    	return properties;
+    }
+    
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
        JpaTransactionManager transactionManager = new JpaTransactionManager();
        transactionManager.setEntityManagerFactory(emf);
-  
+
        return transactionManager;
     }
   
@@ -100,12 +106,6 @@ public class ServletContext extends WebMvcConfigurerAdapter {
        return new PersistenceExceptionTranslationPostProcessor();
     }
   
-    Properties additionalProperties() {
-       Properties properties = new Properties();
-       properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-       properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-       return properties;
-    }
     // DBConnecting & JPA(E)
     
 	
