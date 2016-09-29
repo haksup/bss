@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.suby.bss.login.dao.UserDataMapper">
+    <select id="findUserId" parameterType="hashmap" resultType="hashmap">
+        select
+        	*
+        from
+        	users
+        where
+        	user_id = #{id}
+    </select>
+</mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.suby.bss.login.dao.UserDataMapper;
 import net.suby.bss.login.dao.UserReposiroty;
 import net.suby.bss.login.vo.UserVO;
 
@@ -20,11 +21,19 @@ public class loginController {
 	@Autowired
     private UserReposiroty userReposiroty;
 
+	@Autowired
+	private UserDataMapper userDataMapper;
+	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login(){
 		UserVO userVO = userReposiroty.findByUserId("admin");
 		System.out.println("aaa");
 		System.out.println(userVO);
+		
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put("id", "admin");
+		HashMap<String, String> hm = userDataMapper.findUserId(hashMap);
+		System.out.println("mybatis result " + hm);
 		return "login";
 	}
 	

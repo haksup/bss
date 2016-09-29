@@ -16,7 +16,11 @@ public class AppInitializer extends
  
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { ServletContext.class };
+        return new Class<?>[] { 
+        	ServletContext.class, 
+        	PersistenceJPAConfig.class,
+        	PersistenceMybatisConfig.class
+        };
     }
  
     @Override
